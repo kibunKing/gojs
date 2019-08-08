@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="go.js"></script>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-user-drag: none;
+    }
+
+    #main {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div id="main"></div>
+</body>
+<script>
+    window.onload = function (e) {
+        // 创建画布
+        var objGo = go.GraphObject.make;
+        var myDiagram = objGo(go.Diagram, "main", {
+            //模型图的中心位置所在坐标
+            initialContentAlignment: go.Spot.Center,
+
+            //允许用户操作图表的时候使用Ctrl-Z撤销和Ctrl-Y重做快捷键
+            "undoManager.isEnabled": true,
+
+            //不运行用户改变图表的规模
+            allowZoom: false,
+
+            //画布上面是否出现网格
+            "grid.visible": false,
+
+            //允许在画布上面双击的时候创建节点
+            "clickCreatingTool.archetypeNodeData": { text: "Node" },
+
+            //允许使用ctrl+c、ctrl+v复制粘贴
+            "commandHandler.copiesTree": true,
+
+            //允许使用delete键删除节点
+            "commandHandler.deletesTree": true,
+
+            // dragging for both move and copy
+            "draggingTool.dragsTree": true,
+        })
+        myDiagram.nodeTemplate =
+            objGo(go.Node, "Horizontal",//横向布局的面板
+                // 节点淡蓝色背景
+                { background: "#44CCFF" },
+                objGo(go.Shape,
+                    "RoundedRectangle", //定义形状，这是圆角矩形
+                    { /* Shape的参数。宽高颜色等等*/figure: "RoundedRectangle", width: 40, height: 60, margin: 4, fill: 'red' },
+                    // 绑定 Shape.figure属性为Node.data.fig的值，Model对象可以通过Node.data.fig 获取和设置Shape.figure（修改形状）
+                    new go.Binding("figure", "fig"), new go.Binding('fill', 'fill2')),
+                objGo(go.TextBlock,
+                    "Default Text",  // 默认文本
+                    // 设置字体大小颜色以及边距
+                    { margin: 12, stroke: "white", font: "bold 16px sans-serif" },
+                    //绑定TextBlock.text 属性为Node.data.name的值，Model对象可以通过Node.data.name获取和设置TextBlock.text
+                    new go.Binding("text", "name")),
+                objGo(go.Picture,  // 图片
+                    // 设置字体大小颜色以及边距
+                    { column: 0,
+                      margin: 2 },
+                    //绑定TextBlock.text 属性为Node.data.name的值，Model对象可以通过Node.data.name获取和设置TextBlock.text
+                    new go.Binding("source", "src"))
+            );
+
+        var myModel = objGo(go.Model);
+        myModel.nodeDataArray = [
+            { name: "工厂", fig: 'YinYang', fill2: 'blue' , src:"assets/images/book.png"},
+            { name: "车间", fig: 'Peace', fill2: 'red' , src:"assets/images/book.png" },
+            { name: "工人", fig: 'NotAllowed', fill2: 'green'  , src:"assets/images/book.png"},
+            { name: "岗位", fig: 'Fragile', fill2: 'yellow'  , src:"assets/images/book.png"},
+        ];
+        myDiagram.model = myModel;
+        console.log(myDiagram.model.nodeDataArray);
+    }
+</script>
+
+</html>

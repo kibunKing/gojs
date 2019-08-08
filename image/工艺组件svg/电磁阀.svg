@@ -1,0 +1,87 @@
+<svg height="172" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 112 172" width="112">
+    <defs>
+        <linearGradient y2="100%" x2="0%" id="lg1" x1="0%" y1="0%">
+            <stop stop-color="#bac0c1" offset="0"/>
+            <stop stop-color="#f4fafc" offset="0.15"/>
+            <stop stop-color="#f8fcfd" offset="0.25"/>
+            <stop stop-color="#d5dbdd" offset="0.52"/>
+            <stop stop-color="#bdc3c4" offset="0.69"/>
+            <stop stop-color="#b3b8b9" offset="0.8"/>
+            <stop stop-color="#a9aeaf" offset="0.97"/>
+            <stop stop-color="#c2c7c9" offset="1"/>
+        </linearGradient>
+        <linearGradient y2="0%" x2="0%" id="lg2" x1="100%" y1="0%">
+            <stop stop-color="#9d9d9d" offset="0"/>
+            <stop stop-color="#d0d1d1" offset="0.15"/>
+            <stop stop-color="#e5e6e6" offset="0.25"/>
+            <stop stop-color="#b3b4b4" offset="0.52"/>
+            <stop stop-color="#9fa0a0" offset="0.69"/>
+            <stop stop-color="#969797" offset="0.8"/>
+            <stop stop-color="#8e8e8e" offset="0.97"/>
+            <stop stop-color="#a3a4a4" offset="1"/>
+        </linearGradient>
+        <linearGradient y2="0%" x2="0%" id="lg3" x1="100%" y1="0%">
+            <stop stop-color="#bac0c1" offset="0"/>
+            <stop stop-color="#f4fafc" offset="0.15"/>
+            <stop stop-color="#f8fcfd" offset="0.25"/>
+            <stop stop-color="#d5dbdd" offset="0.52"/>
+            <stop stop-color="#bdc3c4" offset="0.69"/>
+            <stop stop-color="#b3b8b9" offset="0.8"/>
+            <stop stop-color="#a9aeaf" offset="0.97"/>
+            <stop stop-color="#c2c7c9" offset="1"/>
+        </linearGradient>
+        <linearGradient y2="1" x2="4" id="lg4" x1="-0" gradientUnits="userSpaceOnUse" y1="3">
+            <stop stop-color="#c7c7c7" offset="0"/>
+            <stop stop-color="#ffffff" offset="0.15"/>
+            <stop stop-color="#ffffff" offset="0.25"/>
+            <stop stop-color="#dfdfdf" offset="0.52"/>
+            <stop stop-color="#c7c7c7" offset="0.69"/>
+            <stop stop-color="#bcbcbc" offset="0.8"/>
+            <stop stop-color="#b1b1b1" offset="0.92"/>
+        </linearGradient>
+        <linearGradient y2="0%" x2="0%" id="lg5" x1="100%" y1="0%">
+            <stop stop-color="#b5b5b5" offset="0"/>
+            <stop stop-color="#ffffff" offset="0.03"/>
+            <stop stop-color="#ebebeb" offset="0.08"/>
+            <stop stop-color="#e7e7e7" offset="0.64"/>
+            <stop stop-color="#e2e2e2" offset="0.95"/>
+            <stop stop-color="#a8a8a8" offset="1"/>
+        </linearGradient>
+    </defs>
+    <g transform="translate(-676,-310.58)">
+        <path transform="translate(677,448.5)" d="M1.5,0L4.4,0C5.3,0,5.9,.3,5.9,.8L5.9,31.5C5.9,31.9,5.3,32.2,4.4,32.2L1.5,32.2C.7,32.2,0,31.9,0,31.5L0,.8C0,.3,.7,0,1.5,0z" fill="url(#lg1)" id="shape1"/>
+        <path transform="translate(781.06,448.5)" d="M1.5,0L4.4,0C5.3,0,5.9,.3,5.9,.8L5.9,31.5C5.9,31.9,5.3,32.2,4.4,32.2L1.5,32.2C.7,32.2,0,31.9,0,31.5L0,.8C0,.3,.7,0,1.5,0z" fill="url(#lg1)" id="shape2"/>
+        <path transform="translate(682.78,456.07)" d="M8.1,0L0,0L0,17.1L8.1,17.1L8.1,0z" fill="url(#lg1)" id="shape3"/>
+        <path transform="translate(772.97,456.07)" d="M0,0L8.1,0L8.1,17.1L0,17.1L0,0z" fill="url(#lg1)" id="shape4"/>
+        <path transform="translate(770.07,450.29)" d="M2.9,0L0,0L0,28.6L2.9,28.6L2.9,0z" fill="url(#lg1)" id="shape5"/>
+        <path transform="translate(693.84,447.64)" d="M0,0L76.3,0L76.3,33.9L0,33.9L0,0z" fill="url(#lg1)" id="shape6"/>
+        <path transform="translate(690.86,450.29)" d="M2.9,0L0,0L0,28.6L2.9,28.6L2.9,0z" fill="url(#lg1)" id="shape7"/>
+        <path transform="translate(709.92,419.95)" d="M0,15.9L44.2,15.9L29.6,0L14.6,0L0,15.9z" fill="url(#lg2)" id="shape8"/>
+        <path transform="translate(724.46,347.55)" d="M0,28.3L15.1,28.3L15.1,0L0,0L0,28.3z" fill="url(#lg3)" id="shape9"/>
+        <path transform="translate(723,345.22)" d="M.4,-0L17.6,-0C17.8,-0,18,.1,18,.3L18,3.9C18,4.1,17.8,4.2,17.6,4.2L.4,4.2C.2,4.2,0,4.1,0,3.9L0,.3C0,.1,.2,-0,.4,-0z" fill="url(#lg2)" id="shape10"/>
+        <path transform="matrix(1,0,0,-1,732.4,326.5)" d="M0,0L2.7,0L2.7,11.3L0,11.3L0,0z" fill="url(#lg3)" id="shape11"/>
+        <path transform="matrix(1,0,0,-1,685.5,314.3)" d="M0,2.7L0,0L46.1,0L46.1,2.7L0,2.7z" fill="url(#lg1)" id="shape12"/>
+        <path transform="matrix(1,0,0,-1,681.7,397.3)" d="M0,0L2.7,0L2.7,82.2L0,82.2L0,0z" fill="url(#lg3)" id="shape13"/>
+        <path transform="matrix(-1,0,0,1,685.7,311.6)" d="M0,0C0,0,2.1,.1,3.1,1.2C4,2.4,3.9,4.2,3.9,4.2L1.2,4.2C1.2,4.2,1.2,3.2,0,2.7L0,0z" fill="url(#lg4)" id="shape14"/>
+        <path transform="translate(731,311.58)" d="M0,0C0,0,2.2,.1,3.3,1.3C4.4,2.6,4.2,4.6,4.2,4.6L1.3,4.6C1.3,4.6,1.3,3.4,0,2.9L0,0z" fill="url(#lg3)" id="shape15"/>
+        <g transform="translate(708.67,336.12)">
+            <path transform="translate(7.19,4.44)" d="M.4,-0L31.9,-0C32.1,-0,32.3,.2,32.3,.4L32.3,4.4C32.3,4.6,32.1,4.8,31.9,4.8L.4,4.8C.2,4.8,0,4.6,0,4.4L0,.4C0,.2,.2,-0,.4,-0z" fill="url(#lg3)" id="shape16"/>
+            <path d="M.4,-0L46.2,-0C46.5,-0,46.7,.2,46.7,.4L46.7,4C46.7,4.2,46.5,4.4,46.2,4.4L.4,4.4C.2,4.4,0,4.2,0,4L0,.4C0,.2,.2,-0,.4,-0z" fill="url(#lg3)" id="shape17"/>
+        </g>
+        <g transform="matrix(1,0,0,-1,708.7,336.7)">
+            <path transform="translate(7.19,4.44)" d="M.4,-0L31.9,-0C32.1,-0,32.3,.2,32.3,.4L32.3,4.4C32.3,4.6,32.1,4.8,31.9,4.8L.4,4.8C.2,4.8,0,4.6,0,4.4L0,.4C0,.2,.2,-0,.4,-0z" fill="url(#lg3)" id="shape18"/>
+            <path d="M.4,-0L46.2,-0C46.5,-0,46.7,.2,46.7,.4L46.7,4C46.7,4.2,46.5,4.4,46.2,4.4L.4,4.4C.2,4.4,0,4.2,0,4L0,.4C0,.2,.2,-0,.4,-0z" fill="url(#lg3)" id="shape19"/>
+        </g>
+        <g transform="translate(716.18,375.06)">
+            <path transform="translate(0,3.14)" d="M5.6,0L26.1,0L31.6,5.6L31.6,36.5L26.1,42.1L5.6,42.1L0,36.5L0,5.6L5.6,0z" fill="url(#lg5)" id="shape20"/>
+            <path transform="translate(3.03,-0)" d="M.3,0L25.3,0C25.4,0,25.6,.1,25.6,.3L25.6,31.1C25.6,31.3,25.4,31.4,25.3,31.4L.3,31.4C.1,31.4,0,31.3,0,31.1L0,.3C0,.1,.1,0,.3,0z" fill="url(#lg5)" id="shape21"/>
+            <path transform="translate(6.5,31.4)" d="M.3,0L3.4,0C3.5,0,3.7,.1,3.7,.3L3.7,12.1C3.7,12.3,3.5,12.4,3.4,12.4L.3,12.4C.1,12.4,0,12.3,0,12.1L0,.3C0,.1,.1,0,.3,0z" fill="url(#lg5)" id="shape22"/>
+            <path transform="translate(21.6,31.4)" d="M.3,0L3.4,0C3.5,0,3.7,.1,3.7,.3L3.7,12.1C3.7,12.3,3.5,12.4,3.4,12.4L.3,12.4C.1,12.4,0,12.3,0,12.1L0,.3C0,.1,.1,0,.3,0z" fill="url(#lg5)" id="shape23"/>
+            <path transform="translate(3.03,28.61)" d="M.3,-0L25.4,-0C25.5,-0,25.6,.1,25.6,.3L25.6,2.5C25.6,2.7,25.4,2.8,25.3,2.8L.3,2.8C.1,2.8,0,2.7,0,2.5L.1,.3C.1,.1,.2,-0,.3,-0z" fill="url(#lg5)" id="shape24"/>
+        </g>
+        <path transform="matrix(1,0,0,-1,685.5,401)" d="M0,2.7L0,0L34,0L34,2.7L0,2.7z" fill="url(#lg1)" id="shape25"/>
+        <path transform="matrix(-1,0,0,-1,685.5,401)" d="M0,0C0,0,2.1,.1,3.1,1.2C4,2.4,3.9,4.2,3.9,4.2L1.2,4.2C1.2,4.2,1.2,3.2,0,2.7L0,0z" fill="url(#lg4)" id="shape26"/>
+        <path transform="translate(709.91,439.07)" d="M44.2,0L0,0L0,8.7C0,8.7,.7,12.1,22.5,12.1C43.4,12.2,44.2,8.7,44.2,8.7L44.2,0z" fill="url(#lg3)" id="shape27"/>
+        <path transform="translate(708.32,435.3)" d="M.4,-0L46.6,-0C46.8,-0,47,.2,47,.4L47,3.4C47,3.6,46.8,3.8,46.6,3.8L.4,3.8C.2,3.8,0,3.6,0,3.4L0,.4C0,.2,.2,-0,.4,-0z" fill="url(#lg3)" id="shape28"/>
+    </g>
+</svg>
