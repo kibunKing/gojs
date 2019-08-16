@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="go.js"></script>
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .modelMain {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        overflow: hidden;
+    }
+
+    #myPaletteDiv {
+        width: 100px;
+        height: 100%;
+        margin-right: 2px;
+        flex: none;
+        background-color: whitesmoke;
+        border: solid 1px black
+    }
+
+    #myDiagramDiv {
+        flex: 1;
+        height: 100%;
+        border: solid 1px black
+    }
+</style>
+
+<body>
+    <div class="modelMain">
+        <div id="myPaletteDiv"></div>
+        <div id="myDiagramDiv"></div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var $ = go.GraphObject.make; // for conciseness in defining templates
+        var myDiagram = $(go.Diagram, "myDiagramDiv", // must name or refer to the DIV HTML element
+            {
+                allowDrop: true, // must be true to accept drops from the Palette 右边的面板允许防止图形
+                "draggingTool.dragsLink": true,
+                "draggingTool.isGridSnapEnabled": true,
+                "linkingTool.isUnconnectedLinkValid": true,
+                "linkingTool.portGravity": 20,
+                "relinkingTool.isUnconnectedLinkValid": true,
+                "relinkingTool.portGravity": 20,
+                // //连接线的起始点小菱形
+                // "relinkingTool.fromHandleArchetype": $(go.Shape, "Diamond", {
+                //     segmentIndex: 0,
+                //     cursor: "pointer",
+                //     desiredSize: new go.Size(8, 8),
+                //     fill: "tomato",
+                //     stroke: "darkred"
+                // }),
+                // //连接线终点的小菱形
+                // "relinkingTool.toHandleArchetype": $(go.Shape, "Diamond", {
+                //     segmentIndex: -1,
+                //     cursor: "pointer",
+                //     desiredSize: new go.Size(8, 8),
+                //     fill: "darkred",
+                //     stroke: "tomato"
+                // }),
+                // //连接线中间点的小菱形
+                // "linkReshapingTool.handleArchetype": $(go.Shape, "Diamond", {
+                //     desiredSize: new go.Size(7, 7),
+                //     fill: "lightblue",
+                //     stroke: "deepskyblue"
+                // }),
+                rotatingTool: $(TopRotatingTool), // defined below
+                "rotatingTool.snapAngleMultiple": 15,
+                "rotatingTool.snapAngleEpsilon": 15,
+                "undoManager.isEnabled": true
+            }
+        );
+        var nodeSelectionAdornmentTemplate = $(go.Adornment, "Auto", $(
+            go.Shape, {
+                fill: null,
+                stroke: "deepskyblue",
+                strokeWidth: 1.5,
+                strokeDashArray: [4, 2]
+            }), $(go.Placeholder));
+        //改变大小修饰
+        var nodeResizeAdornmentTemplate = $(go.Adornment, "Spot", {
+            locationSpot: go.Spot.Right
+        }, $(go.Placeholder), $(go.Shape, {		//左上
+            alignment: go.Spot.TopLeft,
+            cursor: "nw-resize",
+            desiredSize: new go.Size(6, 6),
+            fill: "lightblue",
+            stroke: "deepskyblue"
+        }), $(go.Shape, {						//上
+            alignment: go.Spot.Top,
+            cursor: "n-resize",
+            desiredSize: new go.Size(6, 6),
+            fill: "lightblue",
+            stroke: "deepskyblue"
+        }), $(go.Shape, {						//右上
+            alignment: go.Spot.TopRight,
+            cursor: "ne-resize",
+            desiredSize: new go.Size(6, 6),
+            fill: "lightblue",
+            stroke: "deepskyblue"
+        }),
+
+
+            $(go.Shape, {							//左中
+                alignment: go.Spot.Left,
+                cursor: "w-resize",
+                desiredSize: new go.Size(6, 6),
+                fill: "lightblue",
+                stroke: "deepskyblue"
+            }), $(go.Shape, {						//右中
+                alignment: go.Spot.Right,
+                cursor: "e-resize",
+                desiredSize: new go.Size(6, 6),
+                fill: "lightblue",
+                stroke: "deepskyblue"
+            }),
+
+
+            $(go.Shape, {							//下左
+                alignment: go.Spot.BottomLeft,
+                cursor: "se-resize",
+                desiredSize: new go.Size(6, 6),
+                fill: "lightblue",
+                stroke: "deepskyblue"
+            }), $(go.Shape, {						//下
+                alignment: go.Spot.Bottom,
+                cursor: "s-resize",
+                desiredSize: new go.Size(6, 6),
+                fill: "lightblue",
+                stroke: "deepskyblue"
+            }), $(go.Shape, {						//下右
+                alignment: go.Spot.BottomRight,
+                cursor: "sw-resize",
+                desiredSize: new go.Size(6, 6),
+                fill: "lightblue",
+                stroke: "deepskyblue"
+            }));
+
+        //旋转修饰
+        var nodeRotateAdornmentTemplate = $(go.Adornment, {
+            locationSpot: go.Spot.Center,
+            locationObjectName: "CIRCLE"
+        }, $(go.Shape, "Circle", {				//旋转小圆点
+            name: "CIRCLE",
+            cursor: "pointer",
+            desiredSize: new go.Size(7, 7),
+            fill: "lightblue",
+            stroke: "deepskyblue"
+        }), $(go.Shape, {						//旋转小圆点狭下面的线
+            geometryString: "M3.5 7 L3.5 30",
+            isGeometryPositioned: true,
+            stroke: "lightblue",
+            strokeWidth: 1.5,
+            strokeDashArray: [4, 2]
+        }));
+
+        //节点模板
+        myDiagram.nodeTemplate =
+            $(go.Node, "Spot", { locationSpot: go.Spot.Center },
+                new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                {//设置其可选择
+                    selectable: true,
+                    selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+                }, {//设置其可改变大小
+                    resizable: true,
+                    resizeObjectName: "PANEL",
+                    resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+                }, {//设置其可旋转
+                    rotatable: true,
+                    rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+                },
+                new go.Binding("angle").makeTwoWay(),
+
+                // the main object is a Panel that surrounds a TextBlock with a Shape ~图形：Panel包围着TextBlock
+                $(go.Panel, "Auto", {
+                    name: "PANEL"
+                },
+                    new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+
+                    $(go.Shape, "Rectangle", // default figure 默认的形状
+                        {
+                            portId: "", // the default port: if no spot on link data, use closest side
+                            fromLinkable: true,
+                            toLinkable: true,
+                            cursor: "pointer",
+                            fill: "white", // default color
+                            strokeWidth: 2
+                        },
+                        new go.Binding("figure"), new go.Binding("fill")),
+
+                    $(go.TextBlock, {
+                        font: "bold 11pt Helvetica, Arial, sans-serif",
+                        margin: 8,
+                        maxSize: new go.Size(160, NaN),
+                        wrap: go.TextBlock.WrapFit,
+                        editable: true
+                    },
+                        new go.Binding("text").makeTwoWay())),
+
+                // four small named ports, one on each side: 设置可被链接的上下左右四个点
+                makePort("T", go.Spot.Top, false, true),
+                makePort("L", go.Spot.Left, true, true),
+                makePort("R", go.Spot.Right, true, true),
+                makePort("B", go.Spot.Bottom, true, false),
+                { // handle mouse enter/leave events to show/hide the ports 使得鼠标离开或者进入图形时，显示四个圆点
+                    mouseEnter: function (e, node) {
+                        showSmallPorts(node, true);
+                    },
+                    mouseLeave: function (e, node) {
+                        showSmallPorts(node, false);
+                    }
+                });
+
+
+        function showSmallPorts(node, show) {
+            node.ports.each(function (port) {
+                if (port.portId !== "") { // don't change the default port, which is the big shape 不改变port默认的大shape
+                    port.fill = show ? "rgba(0,0,0,.3)" : null;
+                }
+            });
+        }
+
+
+        //连接线装饰模板
+        var linkSelectionAdornmentTemplate = $(go.Adornment, "Link", $(
+            go.Shape,
+            // isPanelMain declares that this Shape shares the Link.geometry
+            {
+                isPanelMain: true,
+                fill: null,
+                stroke: "deepskyblue",
+                strokeWidth: 0
+            }) // use selection object's strokeWidth
+        );
+
+        //连接线模板
+        myDiagram.linkTemplate =
+            $(go.Link, // the whole link panel
+                {
+                    toShortLength: -2,
+                    fromShortLength: -2,
+                    layerName: "Background",
+                    routing: go.Link.Orthogonal,
+                    corner: 15,
+                    fromSpot: go.Spot.RightSide,
+                    toSpot: go.Spot.LeftSide
+                },
+                {
+                    selectable: true,
+                    selectionAdornmentTemplate: linkSelectionAdornmentTemplate
+                }, {
+                    relinkableFrom: true,
+                    relinkableTo: true,
+                    reshapable: true
+                }, {
+                    routing: go.Link.AvoidsNodes,
+                    curve: go.Link.JumpOver,
+                    corner: 5,
+                    toShortLength: 4
+                },
+                new go.Binding("fromSpot", "fromPort", function (d) {
+
+                    return spotConverter(d);
+
+                }),
+
+                new go.Binding("toSpot", "toPort", function (d) {
+
+                    return spotConverter(d);
+
+                }),
+                new go.Binding("points").makeTwoWay(),
+
+                // $(go.Shape, // the link path shape 连接线形状
+                // {
+                // 	isPanelMain : true,
+                // 	strokeWidth : 2
+                // }),
+
+                // $(go.Shape, // the arrowhead 箭头头
+                // {
+                // 	toArrow : "Standard",
+                // 	stroke : null
+                // })
+                $(go.Shape, { isPanelMain: true, stroke: "#41BFEC"/* blue*/, strokeWidth: 10 },
+                    new go.Binding("stroke", "color")),
+                $(go.Shape, { isPanelMain: true, stroke: "white", strokeWidth: 3, name: "PIPE", strokeDashArray: [20, 40] })
+                ,
+
+                $(go.Panel, "Auto", new go.Binding("visible", "isSelected")
+                    .ofObject(), $(go.Shape, "RoundedRectangle", // the link shape
+                        {			//连接线上的块块
+                            fill: "#F8F8F8",
+                            stroke: null
+                        }),
+                    $(go.TextBlock, {//连接线上的text文字
+                        textAlign: "center",
+                        font: "10pt helvetica, arial, sans-serif",
+                        stroke: "#919191",
+                        margin: 2,
+                        minSize: new go.Size(10, NaN),
+                        editable: true
+                    },
+                        new go.Binding("text").makeTwoWay()))
+            );
+        load(); // load an initial diagram from some JSON text
+
+        var myPalette = $(go.Palette, "myPaletteDiv", // must name or refer to the DIV HTML element
+            {
+                maxSelectionCount: 1,
+                // nodeTemplateMap: myDiagram.nodeTemplateMap, // share the templates used by myDiagram
+                linkTemplate: // simplify the link template, just in this Palette
+                    //设置连接线属性,在左侧模板框中,简化连接线
+                    $(go.Link,
+                        { // because the GridLayout.alignment is Location and the nodes have locationSpot == Spot.Center,
+                            // to line up the Link in the same manner we have to pretend the Link has the same location spot
+                            locationSpot: go.Spot.Center,
+                            selectionAdornmentTemplate:
+                                $(go.Adornment, "Link", {
+                                    locationSpot: go.Spot.Center
+                                },
+                                    $(go.Shape, {
+                                        isPanelMain: true,
+                                        fill: null,
+                                        stroke: "deepskyblue",
+                                        strokeWidth: 0
+                                    }),
+                                    $(go.Shape, // the arrowhead
+                                        {
+                                            toArrow: "Standard",
+                                            stroke: null
+                                        }))
+                        },
+                        {
+                            routing: go.Link.AvoidsNodes,
+                            curve: go.Link.JumpOver,
+                            corner: 5,
+                            toShortLength: 4
+                        },
+                        new go.Binding("points"),
+                        $(go.Shape, // the link path shape
+                            {
+                                isPanelMain: true,
+                                strokeWidth: 2
+                            }),
+                        $(go.Shape, // the arrowhead
+                            {
+                                toArrow: "Standard",
+                                stroke: null
+                            })
+                    ),
+                model: new go.GraphLinksModel([ // specify the contents of the Palette
+                    {
+                        text: "电池阀",
+                        figure: "solenValve",
+                        fill: "#00AD5F",
+                        imgSrc: "./image/工艺组件svg/电磁阀.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "阀门",
+                        figure: "valve",
+                        fill: "lightgray",
+                        imgSrc: "./image/工艺组件svg/阀门.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "供水泵1",
+                        figure: "pump1",
+                        fill: "lightskyblue",
+                        imgSrc: "./image/工艺组件svg/供水泵1.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "供水泵2",
+                        figure: "pump2",
+                        fill: "#CE0620",
+                        imgSrc: "./image/工艺组件svg/供水泵2.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "流量计",
+                        figure: "flow",
+                        fill: "lightyellow",
+                        imgSrc: "./image/工艺组件svg/流量计.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "水池",
+                        figure: "pool",
+                        fill: "lightyellow",
+                        imgSrc: "./image/工艺组件svg/水池.svg",
+                        width: 50,
+                        height: 20,
+                    }, {
+                        text: "压力计",
+                        figure: "flow",
+                        fill: "pressure",
+                        imgSrc: "./image/工艺组件svg/压力计.svg",
+                        width: 50,
+                        height: 20,
+                    }], [
+                        // the Palette also has a disconnected Link, which the user can drag-and-drop
+                        {
+                            points: new go.List(go.Point).addAll([new go.Point(0, 0),
+                            new go.Point(30, 0), new go.Point(30, 40),
+                            new go.Point(60, 40)])
+                        }])
+            }
+        );
+        myPalette.nodeTemplate =
+            $(go.Node, "Auto",
+                // {
+                //     // set the node to center
+                //     locationSpot: new go.Spot(0, 0, CellSize.width / 2, CellSize.height / 2),
+                //     resizable: false,
+                // },
+                $(go.Panel, "Auto",
+                    $(go.Picture,
+                        { width: 100, height: 50, column: 0, source: "./image/工艺组件svg/供水泵2.svg" },
+                        new go.Binding("source", "src"),
+                        new go.Binding("width", "width"),
+                        new go.Binding("height", "height")
+                    ),
+                    makePort("T", go.Spot.Top, go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, go.Spot.Bottom, true, false))
+            );
+        function TopRotatingTool() {
+            go.RotatingTool.call(this);
+        }
+        go.Diagram.inherit(TopRotatingTool, go.RotatingTool);
+
+
+        /** @override */
+        TopRotatingTool.prototype.updateAdornments = function (part) {
+            go.RotatingTool.prototype.updateAdornments.call(this, part);
+            var adornment = part.findAdornment("Rotating");
+            if (adornment !== null) {
+                adornment.location = part.rotateObject
+                    .getDocumentPoint(new go.Spot(0.5, 0, 0, -30)); // above middle top
+            }
+        };
+
+
+        /** @override */
+        TopRotatingTool.prototype.rotate = function (newangle) {
+            go.RotatingTool.prototype.rotate.call(this, newangle + 90);
+        };
+        //定义形状是否有连接关系
+        function makePort(name, align, spot, output, input) {
+            var horizontal = align.equals(go.Spot.Top) || align.equals(go.Spot.Bottom);
+            // the port is basically just a transparent rectangle that stretches along the side of the node,
+            // and becomes colored when the mouse passes over it
+            return $(go.Shape,
+                {
+                    fill: "transparent",  // changed to a color in the mouseEnter event handler
+                    strokeWidth: 0,  // no stroke
+                    width: horizontal ? NaN : 8,  // if not stretching horizontally, just 8 wide
+                    height: !horizontal ? NaN : 8,  // if not stretching vertically, just 8 tall
+                    alignment: align,  // align the port on the main Shape
+                    stretch: (horizontal ? go.GraphObject.Horizontal : go.GraphObject.Vertical),
+                    portId: name,  // declare this object to be a "port"
+                    fromSpot: spot,  // declare where links may connect at this port
+                    fromLinkable: output,  // declare whether the user may draw links from here
+                    toSpot: spot,  // declare where links may connect at this port
+                    toLinkable: input,  // declare whether the user may draw links to here
+                    cursor: "pointer",  // show a different cursor to indicate potential link point
+                    mouseEnter: function (e, port) {  // the PORT argument will be this Shape
+                        if (!e.diagram.isReadOnly) port.fill = "black";
+                    },
+                    mouseLeave: function (e, port) {
+                        port.fill = "transparent";
+                    }
+                }
+            );
+        }
+    }
+</script>
+
+</html>
