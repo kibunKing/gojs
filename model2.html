@@ -10,6 +10,7 @@
 	<meta charset="UTF-8">
 	<script src="go.js"></script>
 	<script src="GuidedDraggingTool.js"></script>
+	<script src="Figures.js"></script>
 	<script id="code">
 		function init() {
 			// $(function() {
@@ -278,72 +279,72 @@
 				fig.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
 				fig.add(new go.PathSegment(go.PathSegment.Line, w, h));
 				fig.add(new go.PathSegment(go.PathSegment.Line, 0, h).close());
-				var fig2 = new go.PathFigure(.75 * w, 0, false);
-				geo.add(fig2);
-				// The Fold
-				fig2.add(new go.PathSegment(go.PathSegment.Line, .75 * w, .25 * h));
-				fig2.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
-				geo.spot1 = new go.Spot(0, .25);
-				geo.spot2 = go.Spot.BottomRight;
+				// var fig2 = new go.PathFigure(.75 * w, 0, false);
+				// geo.add(fig2);
+				// // The Fold
+				// fig2.add(new go.PathSegment(go.PathSegment.Line, .75 * w, .25 * h));
+				// fig2.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
+				// geo.spot1 = new go.Spot(0, .25);
+				// geo.spot2 = go.Spot.BottomRight;
 				return geo;
 			});
-			go.Shape.defineFigureGenerator("File", function (shape, w, h) {
-				var geo = new go.Geometry();
-				var fig = new go.PathFigure(0, 0, true); // starting point
-				geo.add(fig);
-				// fig.add(new go.PathSegment(go.PathSegment.Line, .75 * w, 0));
-				// fig.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
-				// fig.add(new go.PathSegment(go.PathSegment.Line, w, h));
-				// fig.add(new go.PathSegment(go.PathSegment.Line, 0, h).close());
-				var This = this;
-				var speedX = 0,speedY = 0;
-				this.count = Math.ceil(w / Math.floor(Math.random() * 40 + 10));
-				function drawloop() {
-					window.requestAnimationFrame(drawloop);
-					speedX = 0;
-					speedY += 0.02;
-					draw('#0c1d2e', 'screen');
-					draw('#0c1d2e', 'screen');
-					draw('#0c1d2e', 'screen');
-				}
-				drawloop();
-				function draw(color, comp) {
-                    var amp = 5;
-                    // this.ctx.beginPath();
-                    for (var i = 0; i <= this.count; i++) {
-                        speedX += 0.05;
-                        var x = i * (w / this.count);
-                        // var y = this.simplex.noise2D(this.speedX, this.speedY) * amp;
-						var y =  speedY;
-                        fig.add(new go.PathSegment(go.PathSegment.Line, x, y));
-                    }
-					fig.add(new go.PathSegment(go.PathSegment.Line, w, h));
-					fig.add(new go.PathSegment(go.PathSegment.Line, 0, -h).close());
-                }
-				var fig2 = new go.PathFigure(.75 * w, 0, false);
-				geo.add(fig2);
-				fig2.add(new go.PathSegment(go.PathSegment.Line, .75 * w, .25 * h));
-				fig2.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
-				geo.spot1 = new go.Spot(0, .25);
-				geo.spot2 = go.Spot.BottomRight;
-				return geo;
-			});
+			// go.Shape.defineFigureGenerator("File", function (shape, w, h) {
+			// 	var geo = new go.Geometry();
+			// 	var fig = new go.PathFigure(0, 0, true); // starting point
+			// 	geo.add(fig);
+			// 	// fig.add(new go.PathSegment(go.PathSegment.Line, .75 * w, 0));
+			// 	// fig.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
+			// 	// fig.add(new go.PathSegment(go.PathSegment.Line, w, h));
+			// 	// fig.add(new go.PathSegment(go.PathSegment.Line, 0, h).close());
+			// 	var This = this;
+			// 	var speedX = 0,speedY = 0;
+			// 	this.count = Math.ceil(w / Math.floor(Math.random() * 40 + 10));
+			// 	function drawloop() {
+			// 		window.requestAnimationFrame(drawloop);
+			// 		speedX = 0;
+			// 		speedY += 0.02;
+			// 		draw('#0c1d2e', 'screen');
+			// 		draw('#0c1d2e', 'screen');
+			// 		draw('#0c1d2e', 'screen');
+			// 	}
+			// 	drawloop();
+			// 	function draw(color, comp) {
+			//         var amp = 5;
+			//         // this.ctx.beginPath();
+			//         for (var i = 0; i <= this.count; i++) {
+			//             speedX += 0.05;
+			//             var x = i * (w / this.count);
+			//             // var y = this.simplex.noise2D(this.speedX, this.speedY) * amp;
+			// 			var y =  speedY;
+			//             fig.add(new go.PathSegment(go.PathSegment.Line, x, y));
+			//         }
+			// 		fig.add(new go.PathSegment(go.PathSegment.Line, w, h));
+			// 		fig.add(new go.PathSegment(go.PathSegment.Line, 0, -h).close());
+			//     }
+			// 	var fig2 = new go.PathFigure(.75 * w, 0, false);
+			// 	geo.add(fig2);
+			// 	fig2.add(new go.PathSegment(go.PathSegment.Line, .75 * w, .25 * h));
+			// 	fig2.add(new go.PathSegment(go.PathSegment.Line, w, .25 * h));
+			// 	geo.spot1 = new go.Spot(0, .25);
+			// 	geo.spot2 = go.Spot.BottomRight;
+			// 	return geo;
+			// });
 			// function draw(color, comp) {
-            //         var amp = 5;
-            //         this.ctx.beginPath();
-            //         for (var i = 0; i <= this.count; i++) {
-            //             this.speedX += 0.05;
-            //             var x = i * (this.w / this.count);
-            //             var y = this.simplex.noise2D(this.speedX, this.speedY) * amp;
-            //             this.ctx[i === 0 ? 'moveTo' : 'lineTo'](x, y);
-            //         }
-            //         this.ctx.lineTo(this.w, -this.h);
-            //         this.ctx.lineTo(0, -this.h);
-            //         this.ctx.closePath();
-            //         this.ctx.fillStyle = color;
-            //         this.ctx.globalCompositeOperation = comp;
-            //         this.ctx.fill();
-            //     }
+			//         var amp = 5;
+			//         this.ctx.beginPath();
+			//         for (var i = 0; i <= this.count; i++) {
+			//             this.speedX += 0.05;
+			//             var x = i * (this.w / this.count);
+			//             var y = this.simplex.noise2D(this.speedX, this.speedY) * amp;
+			//             this.ctx[i === 0 ? 'moveTo' : 'lineTo'](x, y);
+			//         }
+			//         this.ctx.lineTo(this.w, -this.h);
+			//         this.ctx.lineTo(0, -this.h);
+			//         this.ctx.closePath();
+			//         this.ctx.fillStyle = color;
+			//         this.ctx.globalCompositeOperation = comp;
+			//         this.ctx.fill();
+			//     }
 			myDiagram.nodeTemplateMap.add("textCase",
 				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
 					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
@@ -376,6 +377,101 @@
 						new go.Binding("text").makeTwoWay())
 					// no ports, because no links are allowed to connect with a comment
 				));
+			myDiagram.nodeTemplateMap.add("waterCase",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					// $(go.Panel, "Auto",{defaultColumnSeparatorStrokeWidth:10},
+					// $(go.Panel, "Auto",
+					// {
+					// 		name: "PANEL"
+					// 	},
+					// 	new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+					$(go.Shape, "Rectangle",
+						{ name: "SHAPE", alignment: go.Spot.Bottom, alignmentFocus: go.Spot.Bottom, fill: "#ccc", strokeWidth: 10, stroke: "red", desiredSize: new go.Size(NaN, 26) },
+						new go.Binding("width").makeTwoWay(), new go.Binding("height").makeTwoWay()),
+					$(go.Shape, "Rectangle",
+						{ name: "SHAPE", alignment: go.Spot.Bottom, alignmentFocus: go.Spot.Bottom, fill: "#ccc", strokeWidth: 10, stroke: "transparent", desiredSize: new go.Size(NaN, 26) },
+						new go.Binding("width").makeTwoWay(), new go.Binding("height").makeTwoWay()),
+					$(go.Shape, "File",
+						{ name: "waterSvg", alignment: go.Spot.Bottom, alignmentFocus: go.Spot.Bottom, fill: "#DEE0A3", stroke: "transparent", strokeWidth: 10, minSize: new go.Size(NaN, 5), desiredSize: new go.Size(NaN, 20) },
+						new go.Binding("width").makeTwoWay(), new go.Binding("height", "waterHight").makeTwoWay()),
+						makePort("T", go.Spot.Top, false, true),
+						// ),
+					makePort("L", go.Spot.Left, true, true),
+					makePort("R", go.Spot.Right, true, true),
+					makePort("B", go.Spot.Bottom, true, false),
+					makePort("RB", go.Spot.BottomRight, true, true),
+					makePort("LB", go.Spot.BottomLeft, true, true),
+					makePort("RT", go.Spot.TopRight, true, true),
+					makePort("LT", go.Spot.TopLeft, true, true),
+					{ // handle mouse enter/leave events to show/hide the ports 使得鼠标离开或者进入图形时，显示四个圆点
+						mouseEnter: function (e, node) {
+							showSmallPorts(node, true);
+						},
+						mouseLeave: function (e, node) {
+							showSmallPorts(node, false);
+						}
+					}
+					// )
+					// $(go.TextBlock,textStyle(),
+					// 	{
+					// 		margin: 5,
+					// 		maxSize: new go.Size(200, NaN),
+					// 		minSize: new go.Size(60, 1),
+					// 		wrap: go.TextBlock.WrapFit,
+					// 		textAlign: "center",
+					// 		editable: true,
+					// 		font: "bold 12pt Helvetica, Arial, sans-serif",
+					// 		stroke: '#454545'
+					// 	},
+					// 	new go.Binding("text").makeTwoWay())
+					// no ports, because no links are allowed to connect with a comment
+				));
+			myDiagram.nodeTemplateMap.add("rotateCase",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "PANEL",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Panel, "Auto",
+						{
+							name: "PANEL"
+						},
+						new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+
+						$(go.Picture,
+							{ name: "rotateSvg", width: 100, height: 50, column: 0, scale: 1, source: "./image/工艺组件svg/供水泵2.svg", angle: 0 },
+							new go.Binding("source", "imgSrc"),
+							new go.Binding("scale", "scale"),
+							new go.Binding("width", "width"),
+							new go.Binding("angle", "angle"),
+							new go.Binding("height", "height")
+						)),
+					// no ports, because no links are allowed to connect with a comment
+				));
 			function onSelectionChanged(e) {
 				var node = e.diagram.selection.first();
 				if (!(node instanceof go.Node)) return;
@@ -384,8 +480,8 @@
 				var node1 = myDiagram.model.findNodeDataForKey(data.key);
 				var doc = document.getElementsByClassName('detail');
 				var str = "";
-				for(var key in node1){
-					str += "<div><span>"+key+"<span><b>"+node1[key]+"</b></div>";
+				for (var key in node1) {
+					str += "<div><span>" + key + "<span><b>" + node1[key] + "</b></div>";
 				}
 				// document.getElementById('detail').append(str);
 				// myDiagram.model.setDataProperty(node1, "scale", "0.5");
@@ -498,144 +594,345 @@
 					)
 				));
 
-				var itemTemplateMap = new go.Map();
-					itemTemplateMap.add("",
-						$(go.Panel, "TableRow",
-						$(go.TextBlock, new go.Binding("text", "name"),
-							{ column: 0, margin: 2, font: "bold 10pt sans-serif" }),
-						$(go.TextBlock, new go.Binding("text", "phone"),
-							{ column: 1, margin: 2 }),
-						$(go.TextBlock, new go.Binding("text", "loc"),
-							{ column: 2, margin: 2 })
-						));
-					itemTemplateMap.add("Header",
-						$(go.Panel, "TableRow",
-						$(go.TextBlock, new go.Binding("text", "name"),
-							{ column: 0, margin: 2, font: "bold 10pt sans-serif" }),
-						$(go.TextBlock, new go.Binding("text", "phone"),
-							{ column: 1, margin: 2, font: "bold 10pt sans-serif" }),
-							$(go.TextBlock, new go.Binding("text", "phone"),
-							{ column: 1, margin: 2, font: "bold 10pt sans-serif" }),
-						$(go.TextBlock, new go.Binding("text", "loc"),
-							{ column: 2, margin: 2, font: "bold 10pt sans-serif" })
-						));
-						
+			var itemTemplateMap = new go.Map();
+			itemTemplateMap.add("",
+				$(go.Panel, "TableRow",
+					$(go.TextBlock, new go.Binding("text", "name"),
+						{ column: 0, margin: 2, font: "bold 10pt sans-serif" }),
+					$(go.TextBlock, new go.Binding("text", "phone"),
+						{ column: 1, margin: 2 }),
+					$(go.TextBlock, new go.Binding("text", "loc"),
+						{ column: 2, margin: 2 })
+				));
+			itemTemplateMap.add("Header",
+				$(go.Panel, "TableRow",
+					$(go.TextBlock, new go.Binding("text", "name"),
+						{ column: 0, margin: 2, font: "bold 10pt sans-serif" }),
+					$(go.TextBlock, new go.Binding("text", "phone"),
+						{ column: 1, margin: 2, font: "bold 10pt sans-serif" }),
+					$(go.TextBlock, new go.Binding("text", "phone"),
+						{ column: 1, margin: 2, font: "bold 10pt sans-serif" }),
+					$(go.TextBlock, new go.Binding("text", "loc"),
+						{ column: 2, margin: 2, font: "bold 10pt sans-serif" })
+				));
 
-					myDiagram.nodeTemplateMap.add("Combination1",
-						$(go.Node, "Auto", { locationSpot: go.Spot.Center },
-							$(go.Shape, { fill: "white",scale:1 }),
-							// new go.Binding("scale", "scale"),
-							$(go.Panel, "Table",
-								new go.Binding("itemArray", "people"),
-								{
-								defaultAlignment: go.Spot.Center,
-								defaultColumnSeparatorStroke: "black",
-								itemTemplateMap: itemTemplateMap
-								},
-								$(go.RowColumnDefinition,
-								{ row: 0, background: "lightgray" }),
-								$(go.RowColumnDefinition,
-								{ row: 1, separatorStroke: "black" })
-							)
-						)
-					);
 
-					myDiagram.nodeTemplateMap.add("case",
-						$(go.Node,
-						new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-						{//设置其可选择
-							selectable: true,
-							selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
-						}, {//设置其可改变大小
-							resizable: true,
-							resizeObjectName: "SHAPE",
-							resizeAdornmentTemplate: nodeResizeAdornmentTemplate
-						}, {//设置其可旋转
-							rotatable: true,
-							rotateAdornmentTemplate: nodeRotateAdornmentTemplate
-						},
-						new go.Binding("angle").makeTwoWay(),
+			myDiagram.nodeTemplateMap.add("Combination1",
+				$(go.Node, "Auto", { locationSpot: go.Spot.Center },
+					$(go.Shape, { fill: "white", scale: 1 }),
+					// new go.Binding("scale", "scale"),
+					$(go.Panel, "Table",
+						new go.Binding("itemArray", "people"),
 						{
-						layerName: "Background",
-						resizable:  true,
-						locationSpot: go.Spot.Center
+							defaultAlignment: go.Spot.Center,
+							defaultColumnSeparatorStroke: "black",
+							itemTemplateMap: itemTemplateMap
 						},
-						//save/load the point that is the top-left corner of the node, not the location
-						new go.Binding("position", "pos", go.Point.parse),
+						$(go.RowColumnDefinition,
+							{ row: 0, background: "lightgray" }),
+						$(go.RowColumnDefinition,
+							{ row: 1, separatorStroke: "black" })
+					)
+				)
+			);
 
-						$(go.Shape, "Rectangle",  // the rectangular shape around the members
-						{ name: "SHAPE",
+			myDiagram.nodeTemplateMap.add("case",
+				$(go.Node,
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					{
+						layerName: "Background",
+						resizable: true,
+						locationSpot: go.Spot.Center
+					},
+					//save/load the point that is the top-left corner of the node, not the location
+					new go.Binding("position", "pos", go.Point.parse),
+
+					$(go.Shape, "Rectangle",  // the rectangular shape around the members
+						{
+							name: "SHAPE",
 							fill: "rgba(128,128,128,0.2)",
 							stroke: "gray",
 						},
 						new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify)),
-					));
-					
-					myDiagram.nodeTemplateMap.add("nameCase",
-					$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
-						new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-						{//设置其可选择
-							selectable: true,
-							selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
-						}, {//设置其可改变大小
-							resizable: true,
-							resizeObjectName: "SHAPE",
-							resizeAdornmentTemplate: nodeResizeAdornmentTemplate
-						}, {//设置其可旋转
-							rotatable: true,
-							rotateAdornmentTemplate: nodeRotateAdornmentTemplate
-						},
-						new go.Binding("angle").makeTwoWay(),
-						// { selectionChanged: nodeSelectionChanged },
-						$(go.Shape, "Rectangle",
-							{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) }),
-						$(go.TextBlock, textStyle(),
-							{
-								margin: 5,
-								maxSize: new go.Size(200, NaN),
-								minSize: new go.Size(60, 1),
-								wrap: go.TextBlock.WrapFit,
-								textAlign: "center",
-								editable: true,
-								font: "bold 12pt Helvetica, Arial, sans-serif",
-								stroke: '#454545'
-							},
-							new go.Binding("text").makeTwoWay())
-						// no ports, because no links are allowed to connect with a comment
-					));
+				));
 
-					myDiagram.nodeTemplateMap.add("valCase",
-					$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
-						new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-						{//设置其可选择
-							selectable: true,
-							selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
-						}, {//设置其可改变大小
-							resizable: true,
-							resizeObjectName: "SHAPE",
-							resizeAdornmentTemplate: nodeResizeAdornmentTemplate
-						}, {//设置其可旋转
-							rotatable: true,
-							rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+			myDiagram.nodeTemplateMap.add("nameCase",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Shape, "Rectangle",
+						{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) }),
+					$(go.TextBlock, textStyle(),
+						{
+							margin: 5,
+							maxSize: new go.Size(200, NaN),
+							minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
 						},
-						new go.Binding("angle").makeTwoWay(),
-						// { selectionChanged: nodeSelectionChanged },
-						$(go.Shape, "RoundedRectangle",
-							{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) }),
+						new go.Binding("text").makeTwoWay())
+					// no ports, because no links are allowed to connect with a comment
+				));
+
+				myDiagram.nodeTemplateMap.add("nameCase",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Shape, "Rectangle",
+						{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) }),
+					$(go.TextBlock, textStyle(),
+						{
+							margin: 5,
+							maxSize: new go.Size(200, NaN),
+							minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
+						},
+						new go.Binding("text").makeTwoWay())
+					// no ports, because no links are allowed to connect with a comment
+				));
+
+			myDiagram.nodeTemplateMap.add("valCase1",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Panel, "Auto",
+					$(go.Shape, "RoundedRectangle",
+						{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) },
+						new go.Binding("width").makeTwoWay(), new go.Binding("height").makeTwoWay()),
+					
+					$(go.TextBlock, textStyle(),
+						{
+							margin: new go.Margin(0, 0, 0, 10),
+							// maxSize: new go.Size(200, NaN),
+							// minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545',
+							alignment: go.Spot.Left, alignmentFocus: go.Spot.Left,
+						},
+						new go.Binding("text","text1").makeTwoWay()),
+					$(go.TextBlock, textStyle(),
+						{
+							margin: new go.Margin(0, 30, 0, 10),
+							// maxSize: new go.Size(200, NaN),
+							// minSize: new go.Size(60, 1),
+							alignment: go.Spot.Right, alignmentFocus: go.Spot.Right,
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
+						},
+						new go.Binding("text").makeTwoWay()),
+			// 			$("Button",
+            //   {
+            //     click: function(e){
+            //       console.log(e)
+            //     }
+            //   },
+            //   $(go.Shape, "PlusLine", { margin: 3, desiredSize: new go.Size(7, 7) })
+            // ),
+						$(go.Shape, "Gear",{
+                click: function(e,obj){
+                  console.log(e,obj,obj.panel.panel.data)
+                }
+              },
+						{ margin: new go.Margin(0, 5, 0, 5),alignment: go.Spot.Right, alignmentFocus: go.Spot.Right, cursor: 'pointer',
+            width: 14, height: 14 },
+						),
+						//  ),
+						 )
+					// no ports, because no links are allowed to connect with a comment
+				));
+
+				myDiagram.nodeTemplateMap.add("switch",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Panel, "Horizontal",
+						{ column: 2 },
+						$("Button",
+						{
+							click: function(e,obj){
+
+							}
+						},
+						$(go.Shape, "PlusLine", { margin: 3, desiredSize: new go.Size(7, 7) })
+						),
+						$("Button",
+						{
+							click: function(e,obj){
+								
+							}
+						},
+						$(go.Shape, "MinusLine", { margin: 3, desiredSize: new go.Size(7, 7) })
+						)
+					)
+				));
+
+				myDiagram.nodeTemplateMap.add("switch1",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					// {//设置其可选择
+					// 	selectable: true,
+					// 	selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					// }, {//设置其可改变大小
+					// 	resizable: true,
+					// 	resizeObjectName: "SHAPE",
+					// 	resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					// }, {//设置其可旋转
+					// 	rotatable: true,
+					// 	rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					// },
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Panel, "Horizontal",
+						// { column: 2 },
+						$(go.Panel,
+						"Table",
+						
+						$(go.Shape, "RoundedRectangle", { name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26),margin:5},),
 						$(go.TextBlock, textStyle(),
-							{
-								// margin: 5,
-								maxSize: new go.Size(200, NaN),
-								minSize: new go.Size(60, 1),
-								wrap: go.TextBlock.WrapFit,
-								textAlign: "center",
-								editable: true,
-								font: "bold 12pt Helvetica, Arial, sans-serif",
-								stroke: '#454545'
-							},
-							new go.Binding("text").makeTwoWay())
-						// no ports, because no links are allowed to connect with a comment
-					));
+						{
+							margin: 5,
+							text:"开启",
+							maxSize: new go.Size(200, NaN),
+							minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
+						},),
+						),
+						$(go.Panel,
+						"Table",
+						
+						$(go.Shape, "RoundedRectangle", { name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26),margin:5},),
+						$(go.TextBlock, textStyle(),
+						{
+							margin: 5,
+							text:"关闭",
+							maxSize: new go.Size(200, NaN),
+							minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
+						},
+						),)
+					)
+				));
+
+			myDiagram.nodeTemplateMap.add("valCase",
+				$(go.Node, "Auto", nodeStyle(), "Spot", { locationSpot: go.Spot.Center },
+					new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+					{//设置其可选择
+						selectable: true,
+						selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+					}, {//设置其可改变大小
+						resizable: true,
+						resizeObjectName: "SHAPE",
+						resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+					}, {//设置其可旋转
+						rotatable: true,
+						rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+					},
+					new go.Binding("angle").makeTwoWay(),
+					// { selectionChanged: nodeSelectionChanged },
+					$(go.Panel, "Auto",
+					$(go.Shape, "RoundedRectangle",
+						{ name: "SHAPE", fill: "#DEE0A3", strokeWidth: 0, desiredSize: new go.Size(NaN, 26) },
+						new go.Binding("width").makeTwoWay(), new go.Binding("height").makeTwoWay()),
+					
+					$(go.TextBlock, textStyle(),
+						{
+							margin: new go.Margin(0, 10, 0, 10),
+							maxSize: new go.Size(200, NaN),
+							minSize: new go.Size(60, 1),
+							wrap: go.TextBlock.WrapFit,
+							textAlign: "center",
+							editable: true,
+							font: "bold 12pt Helvetica, Arial, sans-serif",
+							stroke: '#454545'
+						},
+						new go.Binding("text").makeTwoWay()),
+						$(go.Shape, "Gear",
+						{ margin: new go.Margin(0, 5, 0, 5),alignment: go.Spot.Right, alignmentFocus: go.Spot.Right, cursor: 'pointer',
+            width: 14, height: 14 },
+						),)
+					// no ports, because no links are allowed to connect with a comment
+				));
 
 			//连接线装饰模板
 			var linkSelectionAdornmentTemplate = $(go.Adornment, "Link", $(
@@ -762,7 +1059,7 @@
 					}),
 					new go.Binding("points").makeTwoWay(),
 					// mark each Shape to get the link geometry with isPanelMain: true
-					$(go.Shape, { isPanelMain: true, stroke: "#41BFEC"/* blue*/, strokeWidth: 6,name: "changecolor" },
+					$(go.Shape, { isPanelMain: true, stroke: "#41BFEC"/* blue*/, strokeWidth: 6, name: "changecolor" },
 						new go.Binding("stroke", "color")),
 					$(go.Shape, { isPanelMain: true, stroke: "white", strokeWidth: 3, name: "PIPE", strokeDashArray: [20, 40] }),
 					{ // handle mouse enter/leave events to show/hide the ports 使得鼠标离开或者进入图形时，显示四个圆点
@@ -924,37 +1221,86 @@
 							imgSrc: "./image/工艺组件svg/压力计.svg",
 							width: 50,
 							height: 60,
-						},{ 
-							// category: "Combination1",
-							category: '',
+						}, {
+							text: "旋转",
+							figure: "File",
+							category: "rotateCase",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/泵叶.png",
+							width: 24,
+							height: 24,
+						}, {
+							category: "Combination1",
+							// category: '',
 							scale: 0.5,
 							people: [
-							{ name: "Person", phone: "Phone", loc: "Location", category: "Header" },
-							{ name: "Alice", phone: "2345", loc: "C4-E18" },
-							{ name: "Bob", phone: "9876", loc: "E1-B34" },
-							{ name: "Carol", phone: "1111", loc: "C4-E23" },
-							{ name: "Ted", phone: "2222", loc: "C4-E197" },
-							{ name: "Robert", phone: "5656", loc: "B1-A27" },
-							{ name: "Natalie", phone: "5698", loc: "B1-B6" }
-							] },{ category: "case", size: "50 50" }, 
-							{
-								text: "名称",
-								figure: "name",
-								category: "nameCase",
-								fill: "pressure",
-								imgSrc: "./image/工艺组件svg/压力计.svg",
-								width: 50,
-								height: 60,
-							},
-							{
-								text: "实时值",
-								figure: "val",
-								category: "valCase",
-								fill: "pressure",
-								imgSrc: "./image/工艺组件svg/压力计.svg",
-								width: 50,
-								height: 60,
-							}, { "text": "Bar", "category": "HBar", "size": "100 4" },], [
+								{ name: "Person", phone: "Phone", loc: "Location", category: "Header" },
+								{ name: "Alice", phone: "2345", loc: "C4-E18" },
+								{ name: "Bob", phone: "9876", loc: "E1-B34" },
+								{ name: "Carol", phone: "1111", loc: "C4-E23" },
+								{ name: "Ted", phone: "2222", loc: "C4-E197" },
+								{ name: "Robert", phone: "5656", loc: "B1-A27" },
+								{ name: "Natalie", phone: "5698", loc: "B1-B6" }
+							]
+						}, { category: "case", size: "50 50" },
+						{
+							text: "名称",
+							figure: "name",
+							category: "nameCase",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 50,
+							height: 60,
+						},
+						{
+							text: "实时值",
+							figure: "val",
+							category: "valCase",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 50,
+							height: 60,
+						},
+						{
+							text: "实时值",
+							figure: "val",
+							category: "valCase1",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 160,
+							height: 24,
+							text1: "名称",
+						},
+						{
+							text: "实时值",
+							figure: "val",
+							category: "switch",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 160,
+							height: 24,
+							text1: "名称",
+						},
+						{
+							text: "实时值",
+							figure: "val",
+							category: "switch1",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 160,
+							height: 24,
+							text1: "名称",
+						},
+						{
+							text: "水池",
+							figure: "val",
+							category: "waterCase",
+							fill: "pressure",
+							imgSrc: "./image/工艺组件svg/压力计.svg",
+							width: 50,
+							height: 60,
+							waterHight: 20,
+						}, { "text": "Bar", "category": "HBar", "size": "100 4" },], [
 							// the Palette also has a disconnected Link, which the user can drag-and-drop
 							{
 								points: new go.List(go.Point).addAll([new go.Point(0, 0),
@@ -1009,6 +1355,51 @@
 					loop();
 				}, 60);
 			}
+			rotateSvg();
+			function rotateSvg() {
+				var diagram = myDiagram;
+				setInterval(function () {
+					var oldskips = diagram.skipsUndoManager;
+					diagram.skipsUndoManager = true;
+					diagram.nodes.each(function (node) {
+						var shape = node.findObject("rotateSvg");
+						if (!shape) return false;
+						var off = shape.angle + 30;
+						shape.angle = (off <= 360) ? off : 0;
+						// console.log(shape)
+					});
+					diagram.skipsUndoManager = oldskips;
+					// rotateSvg();
+				}, 60);
+			}
+
+			var i = 0;
+			waterSvg();
+			function waterSvg() {
+				var diagram = myDiagram;
+				setInterval(function () {
+					var oldskips = diagram.skipsUndoManager;
+					diagram.skipsUndoManager = true;
+					diagram.nodes.each(function (node) {
+						var shape = node.findObject("waterSvg");
+						if (!shape) return false;
+						var off = shape.height + 0.3;
+						// F M0 0 L90 0 L100 5 L100 20 L0 20z x M75 0 L75 5 L100 5
+						// i = i + Math.random();
+						i = i + 0.5;
+						// shape.geometryString = 'F M0 0 L90 0 L100 5 L100 20 L0 20z'
+						shape.geometryString = 'F M0 ' + i + ' L' + shape.width + ' ' + (5 - i) + ' L' + shape.width + ' ' + shape.height + ' L0 ' + shape.height + 'z';
+						// shape.geometryString = 'F M0 0 L90 0 L100 5 L100 20 L0 20z'
+						// shape.height = off;
+						// console.log(shape)
+						if (i >= 5) {
+							i = 0;
+						}
+					});
+					diagram.skipsUndoManager = oldskips;
+					// rotateSvg();
+				}, 100);
+			}
 		}
 
 		function TopRotatingTool() {
@@ -1042,13 +1433,13 @@
 
 		BarLink.prototype.getLinkPoint = function (node, port, spot, from, ortho, othernode, otherport) {
 			if (node.category === "HBar") {
-				window.οncοntextmenu=function(event){
-                			var e = event || window.event;
-                			document.getElementById("Menu").style.left=e.clientX+"px";
-                			document.getElementById("Menu").style.top=e.clientY+"px";
-                			document.getElementById("Menu").style.display="block";
-                			return false;
-                		}
+				window.οncοntextmenu = function (event) {
+					var e = event || window.event;
+					document.getElementById("Menu").style.left = e.clientX + "px";
+					document.getElementById("Menu").style.top = e.clientY + "px";
+					document.getElementById("Menu").style.display = "block";
+					return false;
+				}
 				var op = go.Link.prototype.getLinkPoint.call(this, othernode, otherport, this.computeSpot(!from), !from, ortho, node, port);
 				var r = port.getDocumentBounds();
 				// var x = (op.x > r.centerY) ? r.bottom : r.top;
@@ -1132,7 +1523,8 @@
 		width: 100%;
 		position: relative;
 	}
-	.modelInfo{
+
+	.modelInfo {
 		width: 100%;
 		display: flex;
 		align-content: center;
@@ -1141,10 +1533,12 @@
 		overflow: hidden;
 		box-sizing: border-box;
 	}
-	.btnGroup{
+
+	.btnGroup {
 		padding: 10px 0px;
 	}
-	.detail{
+
+	.detail {
 		position: absolute;
 		right: 10px;
 		top: 10px;

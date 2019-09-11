@@ -231,6 +231,54 @@
                             },
                             new go.Binding("figure"), new go.Binding("fill")),
 
+                        ),
+
+                    // four small named ports, one on each side: 设置可被链接的上下左右四个点
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false),
+                    { // handle mouse enter/leave events to show/hide the ports 使得鼠标离开或者进入图形时，显示四个圆点
+                        mouseEnter: function (e, node) {
+                            showSmallPorts(node, true);
+                        },
+                        mouseLeave: function (e, node) {
+                            showSmallPorts(node, false);
+                        }
+                    });
+                    var nodeTemplate = new go.Map();
+                    var nodeTemplate1 = $(go.Node, "Spot", { locationSpot: go.Spot.Center },
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                    {//设置其可选择
+                        selectable: true,
+                        selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+                    }, {//设置其可改变大小
+                        resizable: true,
+                        resizeObjectName: "PANEL",
+                        resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+                    }, {//设置其可旋转
+                        rotatable: true,
+                        rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+                    },
+                    new go.Binding("angle").makeTwoWay(),
+
+                    // the main object is a Panel that surrounds a TextBlock with a Shape ~图形：Panel包围着TextBlock
+                    $(go.Panel, "Auto", {
+                        name: "PANEL"
+                    },
+                        new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+
+                        $(go.Shape, "Rectangle", // default figure 默认的形状
+                            {
+                                portId: "", // the default port: if no spot on link data, use closest side
+                                fromLinkable: true,
+                                toLinkable: true,
+                                cursor: "pointer",
+                                fill: "white", // default color
+                                strokeWidth: 2
+                            },
+                            new go.Binding("figure"), new go.Binding("fill")),
+
                         $(go.TextBlock, {
                             font: "bold 11pt Helvetica, Arial, sans-serif",
                             margin: 8,
@@ -253,7 +301,61 @@
                             showSmallPorts(node, false);
                         }
                     });
+                    myDiagram.groupTemplate =
+                $(go.Group, "Spot", { locationSpot: go.Spot.Center },
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                    {//设置其可选择
+                        selectable: true,
+                        selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+                    }, {//设置其可改变大小
+                        resizable: true,
+                        resizeObjectName: "PANEL",
+                        resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+                    }, {//设置其可旋转
+                        rotatable: true,
+                        rotateAdornmentTemplate: nodeRotateAdornmentTemplate
+                    },
+                    new go.Binding("angle").makeTwoWay(),
 
+                    // the main object is a Panel that surrounds a TextBlock with a Shape ~图形：Panel包围着TextBlock
+                    $(go.Panel, "Auto", {
+                        name: "PANEL"
+                    },
+                        new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify),
+
+                        $(go.Shape, "Rectangle", // default figure 默认的形状
+                            {
+                                portId: "", // the default port: if no spot on link data, use closest side
+                                fromLinkable: true,
+                                toLinkable: true,
+                                cursor: "pointer",
+                                fill: "white", // default color
+                                strokeWidth: 2
+                            },
+                            new go.Binding("figure"), new go.Binding("fill")),
+
+                        $(go.TextBlock, {
+                            font: "bold 11pt Helvetica, Arial, sans-serif",
+                            margin: 8,
+                            maxSize: new go.Size(160, NaN),
+                            wrap: go.TextBlock.WrapFit,
+                            editable: true
+                        },
+                            new go.Binding("text").makeTwoWay())),
+
+                    // four small named ports, one on each side: 设置可被链接的上下左右四个点
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false),
+                    { // handle mouse enter/leave events to show/hide the ports 使得鼠标离开或者进入图形时，显示四个圆点
+                        mouseEnter: function (e, node) {
+                            showSmallPorts(node, true);
+                        },
+                        mouseLeave: function (e, node) {
+                            showSmallPorts(node, false);
+                        }
+                    });
 
             function showSmallPorts(node, show) {
                 node.ports.each(function (port) {
@@ -348,12 +450,13 @@
                 );
             load(); // load an initial diagram from some JSON text
 
-
+            nodeTemplate.add("cc",nodeTemplate1);
             //初始化左边的模板框  initialize the Palette that is on the left side of the page 
             myPalette = $(go.Palette, "myPaletteDiv", // must name or refer to the DIV HTML element
                 {
                     maxSelectionCount: 1,
-                    nodeTemplateMap: myDiagram.nodeTemplateMap, // share the templates used by myDiagram
+                    nodeTemplateMap: nodeTemplate, // share the templates used by myDiagram
+                    // groupTemplateMap: myDiagram.groupTemplateMap,
                     linkTemplate: // simplify the link template, just in this Palette
                         //设置连接线属性,在左侧模板框中,简化连接线
                         $(go.Link,
@@ -398,7 +501,8 @@
                         {
                             text: "Start",
                             figure: "Circle",
-                            fill: "#00AD5F"
+                            fill: "#00AD5F",
+                            category: 'cc',
                         }, {
                             text: "Step"
                         }, {
@@ -505,6 +609,33 @@
             if (pos)
                 myDiagram.initialPosition = go.Point.parse(pos);
             //alert(11111111111);
+        }
+
+        function myCallback(blob) {
+            var url = window.URL.createObjectURL(blob);
+            var filename = "myBlobFile.png";
+
+            var a = document.createElement("a");
+            a.style = "display: none";
+            a.href = url;
+            a.download = filename;
+
+            // IE 11
+            if (window.navigator.msSaveBlob !== undefined) {
+                window.navigator.msSaveBlob(blob, filename);
+                return;
+            }
+
+            document.body.appendChild(a);
+            requestAnimationFrame(function() {
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            });
+        }
+
+        function makeBlob() {
+            var blob = myDiagram.makeImageData({ background: "white", returnType: "blob", callback: myCallback });
         }
     </script>
 
